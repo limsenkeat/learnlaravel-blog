@@ -13,3 +13,15 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
+
+mix.styles([
+    'resources/css/libs/sb-admin-2.css'
+
+], 'public/css/libs.css');
+
+mix.scripts([
+    'resources/js/libs/jquery/jquery.js',
+    'resources/js/libs/jquery-easing/jquery.easing.js',
+    'resources/js/sb-admin-2.js',
+
+], 'public/js/libs.js');
