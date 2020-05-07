@@ -36,10 +36,10 @@ Create User
         </div>
     </div>
     <div class="form-group row">
-        {!! Form::label('file', 'File: ', ['class' => 'col-sm-2 col-form-label']) !!}
+        {!! Form::label('photo', 'File: ', ['class' => 'col-sm-2 col-form-label']) !!}
         <div class="col-sm-8">
-            {!! Form::file('file', ['class' => 'form-control '.($errors->has('file') ? 'is-invalid' : '').'']) !!}
-            @error('file')
+            {!! Form::file('photo', ['class' => 'form-control '.($errors->has('file') ? 'is-invalid' : '').'']) !!}
+            @error('photo')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

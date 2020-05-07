@@ -10,6 +10,7 @@ Users
     <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
@@ -23,6 +24,9 @@ Users
         @foreach ($users as $k => $user)
         <tr>
             <th scope="row">{{$user->id}}</th>
+            <td class="text-center">
+                <img src="{{ $user->photo ? $user->photo->file : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
+            </td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->role->name}}</td>
@@ -35,7 +39,7 @@ Users
             </td>
             <td>{{$user->created_at->diffForHumans()}}</td>
             <td>{{$user->updated_at->diffForHumans()}}</td>
-            <td></td>
+            <td><a href="{{ route('admin.users.edit', $user->id) }}">Edit</td>
         </tr>
         @endforeach
     </tbody>

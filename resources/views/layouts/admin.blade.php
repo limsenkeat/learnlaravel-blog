@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/admin">
+                <a class="nav-link" href="{{ route('admin') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -67,8 +67,8 @@
                 <div id="collapseUsers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Users</h6>
-                        <a class="collapse-item" href="/admin/users">All Users</a>
-                        <a class="collapse-item" href="/admin/users/create">Create User</a>
+                        <a class="collapse-item" href="{{ route('admin.users.index') }}">All Users</a>
+                        <a class="collapse-item" href="{{ route('admin.users.create') }}">Create User</a>
                     </div>
                 </div>
             </li>
@@ -91,8 +91,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Posts</h6>
-                        <a class="collapse-item" href="/admin/posts">All Posts</a>
-                        <a class="collapse-item" href="/admin/posts/create">Create Post</a>
+                        {{-- <a class="collapse-item" href="{{ route('admin.posts') }}') }}">All Posts</a>
+                        <a class="collapse-item" href="{{ route('admin.posts.create') }}">Create Post</a> --}}
                     </div>
                 </div>
             </li>
@@ -108,8 +108,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Categories</h6>
-                        <a class="collapse-item" href="/admin/categories">All Categories</a>
-                        <a class="collapse-item" href="/admin/categories/create">Create Category</a>
+                        {{-- <a class="collapse-item" href="{{ route('admin.categories') }}">All Categories</a>
+                        <a class="collapse-item" href="{{ route('admin.categories.create') }}">Create Category</a> --}}
                     </div>
                 </div>
             </li>
@@ -132,7 +132,7 @@
                 <div id="collapseMedia" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Media</h6>
-                        <a class="collapse-item" href="/admin/media">All Media</a>
+                        {{-- <a class="collapse-item" href="{{ route('admin.media') }}">All Media</a> --}}
                         <a class="collapse-item" href="">Uplaod Media</a>
                     </div>
                 </div>
