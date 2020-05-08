@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    // $user = User::findOrFail(12);
+    // echo $user->password;
+    // echo '<br>';
+    // echo bcrypt('123123123');
+    // dd(Auth::attempt(array('email' => 'keat_09@hotmail.com', 'password' => '123123123')));
+
     return view('welcome');
 });
 
@@ -25,6 +33,10 @@ Route::get('/admin', function () {
     return view('admin.index');
 })->name('admin');
 
-Route::resource('admin/users', 'AdminUsersController', [
-    'as' => 'admin'
-]);
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::resource('admin/users', 'AdminUsersController', [
+        'as' => 'admin'
+    ]);
+
+});

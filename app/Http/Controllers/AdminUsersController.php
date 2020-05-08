@@ -55,7 +55,7 @@ class AdminUsersController extends Controller
 
         User::create($input);
 
-        return redirect('/admin/users');
+        return redirect('/admin/users')->with('status', 'User created successful.');
     }
 
     /**
@@ -92,6 +92,7 @@ class AdminUsersController extends Controller
      */
     public function update(UsersEditRequest $request, $id)
     {
+        $user = User::findOrFail($id);
         
         if(trim($request->password) == ''){
             $input = $request->except('password');
@@ -106,12 +107,19 @@ class AdminUsersController extends Controller
 
             $photo = Photo::create(['file' => $name]); //create photo
             $input['photo_id'] = $photo->id; //assign photo id to user data
+
+            //remove old image
+            $old_photo = Photo::find($user->photo_id);
+            if($old_photo){
+                unlink(public_path().$user->photo->file);
+                $old_photo->delete();
+            }
+            
         }
-        
-        $user = User::findOrFail($id);
+
         $user->update($input);
 
-        return redirect('/admin/users');
+        return redirect('/admin/users')->with('status', 'User update successful.');
     }
 
     /**
@@ -122,6 +130,18 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $user = User::findOrFail($id);
+
+        //remove old image
+        $old_photo = Photo::find($user->photo_id);
+        if($old_photo){
+            unlink(public_path().$user->photo->file);
+            $old_photo->delete();
+        }
+
+        $user->delete();
+
+        return redirect('/admin/users')->with('status', 'User deleted successful.');
     }
 }

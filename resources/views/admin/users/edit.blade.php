@@ -76,5 +76,10 @@ Edit User
             </div>
         {!! Form::close() !!}
     </div>
+    <div class="col-12">
+        {!! Form::open(['method' => 'DELETE', 'action' => ['AdminUsersController@destroy', $user->id] ]) !!}
+        {!! Form::submit('Delete User', ['class' => 'btn btn-danger']) !!}
+        {!! Form::close() !!}
+    </div>
 </div>
 @endsection
