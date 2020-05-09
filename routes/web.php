@@ -21,7 +21,7 @@ Route::get('/', function () {
     // echo '<br>';
     // echo bcrypt('123123123');
     // dd(Auth::attempt(array('email' => 'keat_09@hotmail.com', 'password' => '123123123')));
-
+    
     return view('welcome');
 });
 
@@ -36,6 +36,9 @@ Route::get('/admin', function () {
 Route::group(['middleware' => 'admin'], function () {
 
     Route::resource('admin/users', 'AdminUsersController', [
+        'as' => 'admin'
+    ]);
+    Route::resource('admin/posts', 'AdminPostsController', [
         'as' => 'admin'
     ]);
 

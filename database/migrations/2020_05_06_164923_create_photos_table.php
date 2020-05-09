@@ -17,7 +17,22 @@ class CreatePhotosTable extends Migration
             $table->id();
             $table->string('file');
             $table->timestamps();
+            // $table->foreign('id')->references('photo_id')->on('users')->onDelete('cascade');
+            // $table->foreign('id')->references('photo_id')->on('posts')->onDelete('cascade');
+
         });
+
+        // Schema::table('photos', function($table) {
+        //     $table->foreign('id')->references('photo_id')->on('users')>onDelete('cascade');
+        //     // $table->foreign('id')->references('photo_id')->on('posts')->onDelete('cascade');
+        // });
+
+        // DB::statement(
+        //     "ALTER TABLE photos ADD FOREIGN KEY (id) REFERENCES users(photo_id)"
+        // );
+        // DB::statement(
+        //     "ALTER TABLE photos ADD FOREIGN KEY (id) REFERENCES posts(photo_id)"
+        // );
     }
 
     /**
@@ -27,6 +42,8 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('photos');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::drop('photos');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
