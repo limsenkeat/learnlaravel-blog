@@ -8,6 +8,7 @@ use App\Photo;
 use Illuminate\Http\Request;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UsersEditRequest;
+use Illuminate\Support\Facades\Storage;
 
 class AdminUsersController extends Controller
 {
@@ -44,13 +45,9 @@ class AdminUsersController extends Controller
     {
         $input = $request->all();
 
-        if($file = $request->file('photo')){
+        if($file = $request->file('image')){
 
-            $name = time().$file->getClientOriginalName();
-            $file->move('images', $name); //move photo
-
-            $photo = Photo::create(['file' => $name]); //create photo
-            $input['photo_id'] = $photo->id; //assign photo id to user data
+            $input['image'] = $request->file('image')->store('images');
         }
 
         User::create($input);
@@ -100,20 +97,12 @@ class AdminUsersController extends Controller
             $input = $request->all();
         }
 
-        if($file = $request->file('photo')){
+        if($file = $request->file('image')){
 
-            $name = time().$file->getClientOriginalName();
-            $file->move('images', $name); //move photo
+            $input['image'] = $request->file('image')->store('images');
 
-            $photo = Photo::create(['file' => $name]); //create photo
-            $input['photo_id'] = $photo->id; //assign photo id to user data
-
-            //remove old image
-            $old_photo = Photo::find($user->photo_id);
-            if($old_photo){
-                unlink(public_path().$user->photo->file);
-                $old_photo->delete();
-            }
+            // //remove old image
+            Storage::delete($post->getRawOriginal('image'));
             
         }
 
@@ -134,11 +123,7 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
 
         //remove old image
-        $old_photo = Photo::find($user->photo_id);
-        if($old_photo){
-            unlink(public_path().$user->photo->file);
-            $old_photo->delete();
-        }
+        Storage::delete($post->getRawOriginal('image'));
 
         $user->delete();
 

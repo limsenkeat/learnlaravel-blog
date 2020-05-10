@@ -7,7 +7,7 @@ Edit User
 @section('content')
 <div class="row">
     <div class="col-sm-3">
-        <img src="{{ $user->photo ? $user->photo->file : 'https://via.placeholder.com/200?text=No Image'}}" alt="{{$user->name}}">
+        <img src="{{ $user->image ? asset($user->image) : 'https://via.placeholder.com/200?text=No Image'}}" alt="{{$user->name}}">
     </div>
     <div class="col-sm-9">
         {!! Form::open(['method' => 'PUT', 'action' => ['AdminUsersController@update', $user->id], 'files' => true]) !!}
@@ -40,10 +40,10 @@ Edit User
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('photo', 'File: ', ['class' => 'col-sm-2 col-form-label']) !!}
+                {!! Form::label('image', 'Image: ', ['class' => 'col-sm-2 col-form-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::file('photo', ['class' => 'form-control '.($errors->has('file') ? 'is-invalid' : '').'']) !!}
-                    @error('photo')
+                    {!! Form::file('image', ['class' => 'form-control '.($errors->has('image') ? 'is-invalid' : '').'']) !!}
+                    @error('image')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

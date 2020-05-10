@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('external_css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/DataTables/datatables.min.css') }}"/>
+@endsection
+
 @section('page-title')
 Users
 @endsection
@@ -15,7 +19,7 @@ Users
     </div>
 @endif
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="userTable">
     <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
@@ -34,7 +38,7 @@ Users
         <tr>
             <th scope="row">{{$user->id}}</th>
             <td class="text-center">
-                <img src="{{ $user->photo ? $user->photo->file : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
+                <img src="{{ $user->image ? asset($user->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
             </td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
@@ -54,4 +58,15 @@ Users
     </tbody>
 </table>
 
+@endsection
+
+
+@section('external_js') 
+    <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }} "></script>
+    <script>
+        $('#userTable').DataTable({
+            "order": [[ 6, "desc" ]],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+    </script>
 @endsection

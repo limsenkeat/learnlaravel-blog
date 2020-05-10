@@ -7,7 +7,7 @@ Edit Post
 @section('content')
 <div class="row">
     <div class="col-sm-3">
-        <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/200?text=No Image'}}" alt="{{$post->name}}">
+        <img src="{{ $post->image ? asset($post->image) : 'https://via.placeholder.com/200?text=No Image'}}" alt="{{$post->name}}">
     </div>
     <div class="col-sm-9">
         {!! Form::open(['method' => 'PUT', 'action' => ['AdminPostsController@update', $post->id], 'files' => true]) !!}
@@ -27,9 +27,9 @@ Edit Post
             @enderror
         </div>
         <div class="form-group">
-            {!! Form::label('photo', 'File: ') !!}
-            {!! Form::file('photo', ['class' => 'form-control '.($errors->has('file') ? 'is-invalid' : '').'']) !!}
-            @error('photo')
+            {!! Form::label('image', 'Image: ') !!}
+            {!! Form::file('image', ['class' => 'form-control '.($errors->has('image') ? 'is-invalid' : '').'']) !!}
+            @error('image')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

@@ -23,9 +23,9 @@ Create Post
         @enderror
     </div>
     <div class="form-group">
-        {!! Form::label('photo', 'File: ') !!}
-        {!! Form::file('photo', ['class' => 'form-control '.($errors->has('file') ? 'is-invalid' : '').'']) !!}
-        @error('photo')
+        {!! Form::label('image', 'Image: ') !!}
+        {!! Form::file('image', ['class' => 'form-control '.($errors->has('image') ? 'is-invalid' : '').'']) !!}
+        @error('image')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>

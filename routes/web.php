@@ -14,35 +14,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-    // $user = User::findOrFail(12);
-    // echo $user->password;
-    // echo '<br>';
-    // echo bcrypt('123123123');
-    // dd(Auth::attempt(array('email' => 'keat_09@hotmail.com', 'password' => '123123123')));
-    
-    return view('welcome');
-});
-
 Auth::routes();
+// Route::get('/', function(){
+//     return Hash::make(123123123);
+// })->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//home page
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/admin', function () {
-    return view('admin.index');
-})->name('admin');
-
+//admin route
 Route::group(['middleware' => 'admin'], function () {
 
+
+    //admin main
+    Route::get('/admin', 'AdminsController@index')->name('admin.index');
+
+    //user
     Route::resource('admin/users', 'AdminUsersController', [
         'as' => 'admin'
     ]);
 
+    //posts
     Route::resource('admin/posts', 'AdminPostsController', [
         'as' => 'admin'
     ]);
 
+    //categories
     Route::resource('admin/categories', 'AdminCategoriesController', [
         'as' => 'admin'
     ]);

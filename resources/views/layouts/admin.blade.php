@@ -21,6 +21,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/libs.css') }}" rel="stylesheet">
 
+    @yield('external_css')
+
 </head>
 
 <body id="page-top">
@@ -44,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin') }}">
+                <a class="nav-link" href="{{ route('admin.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -327,7 +329,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user() ? Auth::user()->name : '' }}</span>
                                 {{-- <img class="img-profile rounded-circle" src="{{ $user->photo ? $user->photo->file : 'https://via.placeholder.com/200?text=No Image'}}"> --}}
                             </a>
                             <!-- Dropdown - User Information -->
@@ -426,6 +428,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/libs.js') }}"></script>
+
+    @yield('external_js')
 
 </body>
 

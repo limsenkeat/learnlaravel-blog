@@ -8,6 +8,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPostsController extends Controller
 {
@@ -42,19 +43,15 @@ class AdminPostsController extends Controller
     public function store(PostsRequest $request)
     {
         
-        $user = Auth::User();
         $input = $request->all();
 
-        if($file = $request->file('photo')){
+        if($file = $request->file('image')){
 
-            $name = time().$file->getClientOriginalName();
-            $file->move('images', $name); //move photo
+            $input['image'] = $request->file('image')->store('images');
 
-            $photo = Photo::create(['file' => $name]); //create photo
-            $input['photo_id'] = $photo->id; //assign photo id to user data
         }
 
-        $user->posts()->create($input);
+        auth()->user()->posts()->create($input);
 
         return redirect('/admin/posts')->with('status', 'Post created successful.');
     }
@@ -97,20 +94,12 @@ class AdminPostsController extends Controller
         $post = Post::findOrFail($id);
         $input = $request->all();
 
-        if($file = $request->file('photo')){
+        if($file = $request->file('image')){
 
-            $name = time().$file->getClientOriginalName();
-            $file->move('images', $name); //move photo
-
-            $photo = Photo::create(['file' => $name]); //create photo
-            $input['photo_id'] = $photo->id; //assign photo id to user data
-
+            $input['image'] = $request->file('image')->store('images');
+            
             //remove old image
-            $old_photo = Photo::find($post->photo_id);
-            if($old_photo){
-                unlink(public_path().$post->photo->file);
-                $old_photo->delete();
-            }
+            Storage::delete($post->getRawOriginal('image'));
         }
 
         $post->update($input);
@@ -130,11 +119,7 @@ class AdminPostsController extends Controller
         $post = Post::findOrFail($id);
 
         //remove old image
-        $old_photo = Photo::find($post->photo_id);
-        if($old_photo){
-            unlink(public_path().$post->photo->file);
-            $old_photo->delete();
-        }
+        Storage::delete($post->getRawOriginal('image'));
 
         $post->delete();
 

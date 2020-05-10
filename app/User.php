@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'is_active', 'photo_id'
+        'name', 'email', 'password', 'role_id', 'is_active', 'image'
     ];
 
     /**
@@ -43,16 +43,16 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    public function photo(){
-
-        return $this->belongsTo('App\Photo');
-    }
-
     public function setPasswordAttribute($password){
         
         if(!empty($password)){
             $this->attributes['password'] = Hash::make($password);
         }
+    }
+
+    public function getImageAttribute($image){
+
+        return 'storage/'.$image;
     }
 
     public function isAdmin(){
@@ -68,4 +68,5 @@ class User extends Authenticatable
         
         return $this->hasMany('App\Post');
     }
+
 }

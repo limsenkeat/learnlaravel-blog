@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@section('external_css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/DataTables/datatables.min.css') }}"/>
+@endsection
+
 @section('page-title')
 Posts
 @endsection
@@ -15,7 +19,7 @@ Posts
     </div>
 @endif
 
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover" id="postTable">
     <thead class="thead-light">
         <tr>
             <th scope="col">#</th>
@@ -34,7 +38,7 @@ Posts
         <tr>
             <th scope="row">{{$post->id}}</th>
             <td class="text-center">
-                <img src="{{ $post->photo ? $post->photo->file : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
+                <img src="{{ $post->image ? asset($post->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
             </td>
             <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
             <td>{{$post->title}}</td>
@@ -48,4 +52,14 @@ Posts
     </tbody>
 </table>
 
+@endsection
+
+@section('external_js') 
+    <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }} "></script>
+    <script>
+        $('#postTable').DataTable({
+            "order": [[ 6, "desc" ]],
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+    </script>
 @endsection
