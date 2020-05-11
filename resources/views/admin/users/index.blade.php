@@ -38,7 +38,7 @@ Users
         <tr>
             <th scope="row">{{$user->id}}</th>
             <td class="text-center">
-                <img src="{{ $user->image ? asset($user->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
+                <img src="{{ Storage::exists($user->image) ? asset($user->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
             </td>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>

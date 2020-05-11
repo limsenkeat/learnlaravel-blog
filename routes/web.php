@@ -21,6 +21,7 @@ Auth::routes();
 
 //home page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/post/{id}', 'PostController@show')->name('post');
 
 //admin route
 Route::group(['middleware' => 'admin'], function () {

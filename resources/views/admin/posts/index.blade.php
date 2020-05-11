@@ -38,7 +38,7 @@ Posts
         <tr>
             <th scope="row">{{$post->id}}</th>
             <td class="text-center">
-                <img src="{{ $post->image ? asset($post->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
+                <img src="{{ Storage::exists($post->image) ? asset($post->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
             </td>
             <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
             <td>{{$post->title}}</td>
@@ -46,7 +46,11 @@ Posts
             <td>{{$post->user->name}}</td>
             <td>{{$post->created_at->diffForHumans()}}</td>
             <td>{{$post->updated_at->diffForHumans()}}</td>
-            <td><a href="{{ route('admin.posts.edit', $post->id) }}">Edit</td>
+            <td>
+            @can('view', $post)
+                <a href="{{ route('admin.posts.edit', $post->id) }}">Edit
+            @endcan
+            </td>
         </tr>
         @endforeach
     </tbody>

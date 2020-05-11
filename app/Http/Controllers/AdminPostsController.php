@@ -30,6 +30,8 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Post::class);
+        
         $categories = Category::pluck('name', 'id')->all();
         return view('admin.posts.create', compact('categories'));
     }
@@ -42,6 +44,8 @@ class AdminPostsController extends Controller
      */
     public function store(PostsRequest $request)
     {
+        
+        $this->authorize('create', Post::class);
         
         $input = $request->all();
 
@@ -75,6 +79,9 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
+        
+        $this->authorize('update', Post::class);
+
         $post = Post::findOrFail($id);
         $categories = Category::pluck('name', 'id')->all();
 
@@ -91,6 +98,8 @@ class AdminPostsController extends Controller
     public function update(Request $request, $id)
     {
 
+        $this->authorize('update', Post::class);
+        
         $post = Post::findOrFail($id);
         $input = $request->all();
 
@@ -116,6 +125,8 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         
+        $this->authorize('delete', Post::class);
+
         $post = Post::findOrFail($id);
 
         //remove old image
