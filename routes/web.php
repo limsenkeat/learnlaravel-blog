@@ -23,6 +23,11 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/post/{id}', 'PostController@show')->name('post');
 
+Route::get('/logout', function () {
+    auth()->logout();
+    return redirect('/');
+});
+
 //admin route
 Route::group(['middleware' => 'admin'], function () {
 
@@ -42,6 +47,14 @@ Route::group(['middleware' => 'admin'], function () {
 
     //categories
     Route::resource('admin/categories', 'AdminCategoriesController', [
+        'as' => 'admin'
+    ]);
+
+    //comments
+    Route::resource('admin/comments', 'PostCommentsController', [
+        'as' => 'admin'
+    ]);
+    Route::resource('admin/comments/replies', 'CommentRepliesController', [
         'as' => 'admin'
     ]);
 

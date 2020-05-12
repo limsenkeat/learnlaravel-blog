@@ -30,6 +30,7 @@ Posts
             <th scope="col">User</th>
             <th scope="col">Created</th>
             <th scope="col">Updated</th>
+            <th scope="col">View Comments</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -41,11 +42,12 @@ Posts
                 <img src="{{ Storage::exists($post->image) ? asset($post->image) : 'https://via.placeholder.com/30?text=No Image'}}" height="30">
             </td>
             <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
-            <td>{{$post->title}}</td>
+            <td><a href="{{route('post', $post->id)}}" target="_blank" rel="noopener noreferrer">{{$post->title}}</a></td>
             <td>{{$post->body}}</td>
             <td>{{$post->user->name}}</td>
             <td>{{$post->created_at->diffForHumans()}}</td>
             <td>{{$post->updated_at->diffForHumans()}}</td>
+            <td><a href="{{route('admin.comments.show', ['id' => $post->id])}}">Comments</a></td>
             <td>
             @can('view', $post)
                 <a href="{{ route('admin.posts.edit', $post->id) }}">Edit
